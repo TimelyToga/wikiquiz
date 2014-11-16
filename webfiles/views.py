@@ -4,10 +4,11 @@ except ImportError: import json
 
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import RequestContext, loader
-import wikiquiz.settings as settings
-from nltk.tokenize import word_tokenize
 from webfiles import lang
+from bs4 import BeautifulSoup
+
 import logging
+import re
 
 def home(request):
   template = loader.get_template('index.html')
@@ -20,7 +21,9 @@ def quiz(request, wiki_title):
 
   ## Question generation
   article_text = lang.get_text(wiki_title=wiki_title)
-  questions = lang.questions(article_text)
+  questions_text = BeautifulSoup(article_text).get_text()
+  questions_text = re.sub("\[\d{0,3}\]", "", questions_text).strip()
+  questions = lang.questions(questions_text)
 
   ## TEMPLATE
   template = loader.get_template('quiz.html')
