@@ -23,11 +23,14 @@ def quiz(request, wiki_title):
   article_text = lang.get_text(wiki_title=wiki_title)
   questions_text = BeautifulSoup(article_text).get_text()
   questions_text = re.sub("\[\d{0,3}\]", "", questions_text).strip()
-  questions = lang.questions(questions_text)
+  corpus_qs = lang.questions(questions_text)
+  vcard_qs = lang.get_vcard(wiki_title=wiki_title)
+  total_qs = corpus_qs + vcard_qs
+
 
   ## TEMPLATE
   template = loader.get_template('quiz.html')
-  context = RequestContext(request, {"wiki_text": article_text, "article_title": article_title, "questions": questions})
+  context = RequestContext(request, {"wiki_text": article_text, "article_title": article_title, "questions": total_qs})
   return HttpResponse(template.render(context))
 
 

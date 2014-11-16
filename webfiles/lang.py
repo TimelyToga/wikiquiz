@@ -16,7 +16,7 @@ templates = {r"\S{0,20}ed in \d{4}": 0,  ## {past tense verb} in {year}
              r"(?:\s*\b([A-Z][A-Za-z]+)\b){1,2} was born on (\d{1,3}.{0,3} \S{3,10}|\S{3,10} \d{1,3}.{0,3}) \d{4}": 1, ## {Proper Noun} was born on {Month} {Day}, {Year}
             }
 
-vcard_qs = {"Born": {"id": 0, "question": "Where was %s born?"}, "Population": {"id": 1, "question":"What is the population of %s?"},
+vcard_qs = {"Born": {"id": 0, "question": "When and where was %s born?"}, "Population": {"id": 1, "question":"What is the population of %s?"},
             "Predecessor": {"id": 2, "question":"Who was %s's predecessor?"}, "Year founded": {"id": 3, "question": "When was %s founded?"},
             "Founded": {"id": 4, "question": "When was %s founded?"}}
 
@@ -78,6 +78,8 @@ def get_text(wiki_title="Jabari_Parker"):
   parser_client = ParserClient(settings.PARSER_TOKEN)
   parser_response_text = parser_client.get_article_content(settings.WIKI_URL + wiki_title).content['content'].replace("\n", " ")
   text = parser_response_text.replace("/<img[^>]*>/g","")
+  text = text.split('<span class="mw-headline" id="See_also"')[0]
+  text = text.split('<span class="mw-headline" id="Notes"')[0]
   text = text.split('<span class="mw-headline" id="References"')[0]
   text = text.split('<span class="mw-headline" id="Notes_and_references"')[0]
   return text
@@ -90,7 +92,7 @@ def get_vcard(wiki_title="Jabari_Parker"):
 
   vcard_results = {}
   final_question_list = []
-  cur_q = 0
+  cur_q = 100
 
   ## Create soup
   from bs4 import BeautifulSoup
@@ -105,7 +107,11 @@ def get_vcard(wiki_title="Jabari_Parker"):
     for i in ths:
       if i.string == q:
         ## Extract information and render question
-        answer = i.parent.td.get_text()
+        try:
+          answer = i.parent.td.get_text()
+        except AttributeError:
+          answer = i.parent.next_sibling.next_sibling.next_sibling.next_sibling.get_text()
+        answer = re.sub(r'\[.+?\]\s*', ' ', answer)
         final_question_list.append({"id": id, "question": question, "answer": answer, "num": cur_q })
         cur_q += 1
 
