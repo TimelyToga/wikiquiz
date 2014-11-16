@@ -1,15 +1,3 @@
-/*<div class="sentence_group_wrapper">*/
-    /*<ol id="sentence_list">*/
-        /*{% for s in sentence_list %}*/
-            /*<li class="sentence_wrapper">*/
-                /*<span class="sentence_text">*/
-                    /*{{ s }}*/
-                /*</span>*/
-            /*</li>*/
-        /*{% endfor %}*/
-    /*</ol>*/
-/*</div>*/
-
 #sentence_list {
     background-color: gainsboro;
     border-radius: 8px;

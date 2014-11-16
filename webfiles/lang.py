@@ -24,7 +24,10 @@ vcard_qs = {"Born": {"id": 0, "question": "When and where was %s born?"},
             "Molecular formula": {"id": 5, "question": "What is the chemical formula for %s?"},
             "Density": {"id": 6, "question": "What is the density of %s?"},
             "Religion": {"id": 7, "question": "%s practices what religion?"},
-            "Political party": {"id": 8, "question": "%s belongs to what political party?"},}
+            "Political party": {"id": 8, "question": "%s belongs to what political party?",
+            "Author(s)": {"id": 9, "question": "Who was(were) the author(s) of %s?"},
+            "Author(s)": {"id": 9, "question": "Who was(were) the author(s) of %s?"},},
+            }
 
 
 def questions(text):
