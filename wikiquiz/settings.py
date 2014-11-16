@@ -32,6 +32,7 @@ SECRET_KEY = '6*rxudbv($15+p3i#epsm!1-%hb@z9fxg@_d$cwibd2r$&q+e7'
 ## READABILITY
 PARSER_TOKEN = "559d23a43dfef9f3f7f398b93da5681aa519ee36"
 WIKI_URL = "https://en.wikipedia.org/wiki/"
+MIN_SENT_LENGTH = 60
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

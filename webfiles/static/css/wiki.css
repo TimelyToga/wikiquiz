@@ -1,11 +1,17 @@
+.wrapper {
+    width: 1200px;
+}
+
 .wiki_title {
     text-align: left;
     margin: 30px 100px;
-    /*padding: 20px 0 0 0;*/
+    height: 100%;
+    position: relative;
 }
 
 #article_title {
     font-size: 36pt;
+    width: auto;
 }
 
 .bubble {
@@ -23,4 +29,39 @@
     text-align: left;
     margin: 5px 20px 10px 10px;
     font-size: 20pt;
+}
+
+.button_wrapper {
+    width: 70%;
+    height: 100%;
+    float: right !important;
+}
+
+.return_button {
+    display: table-cell;
+    vertical-align: middle;
+    float: right;
+    position: relative;
+    text-align: center;
+    height: 100%;
+    background-color: #ABBBD9;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.return_inner_wrapper {
+    display: inline-block;
+    text-align: right;
+
+}
+
+#home_link_wrapper {
+    float: right;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+
+}
+
+#home_link {
 }

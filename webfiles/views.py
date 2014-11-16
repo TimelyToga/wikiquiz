@@ -30,9 +30,11 @@ def quiz(request, wiki_title):
   ## title
   article_title = wiki_title.replace("_", " ")
 
+  questions = lang.questions()
+
   ## TEMPLATE
   template = loader.get_template('quiz.html')
-  context = RequestContext(request, {"wiki_text": cleaned_text, "article_title": article_title})
+  context = RequestContext(request, {"wiki_text": cleaned_text, "article_title": article_title, "questions": questions})
   return HttpResponse(template.render(context))
 
 
