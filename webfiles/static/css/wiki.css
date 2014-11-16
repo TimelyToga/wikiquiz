@@ -91,3 +91,8 @@
     font-size: 18pt;
     margin: 10px 20px;
 }
+
+.internal_nav_links {
+    float: right;
+    font-size: 12pt;
+}

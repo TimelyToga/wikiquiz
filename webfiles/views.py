@@ -7,7 +7,7 @@ from django.template import RequestContext, loader
 from webfiles import lang
 from bs4 import BeautifulSoup
 
-import logging
+from wikiquiz import settings
 import re
 
 def home(request):
@@ -21,6 +21,7 @@ def quiz(request, wiki_title):
 
   ## Question generation
   article_text = lang.get_text(wiki_title=wiki_title)
+  article_text = re.sub(r"https:\/\/en.wikipedia.org\/wiki\/", "", article_text)
   questions_text = BeautifulSoup(article_text).get_text()
   questions_text = re.sub("\[\d{0,3}\]", "", questions_text).strip()
   corpus_qs = lang.questions(questions_text)

@@ -16,9 +16,13 @@ templates = {r"\S{0,20}ed in \d{4}": 0,  ## {past tense verb} in {year}
              r"(?:\s*\b([A-Z][A-Za-z]+)\b){1,2} was born on (\d{1,3}.{0,3} \S{3,10}|\S{3,10} \d{1,3}.{0,3}) \d{4}": 1, ## {Proper Noun} was born on {Month} {Day}, {Year}
             }
 
-vcard_qs = {"Born": {"id": 0, "question": "When and where was %s born?"}, "Population": {"id": 1, "question":"What is the population of %s?"},
-            "Predecessor": {"id": 2, "question":"Who was %s's predecessor?"}, "Year founded": {"id": 3, "question": "When was %s founded?"},
-            "Founded": {"id": 4, "question": "When was %s founded?"}}
+vcard_qs = {"Born": {"id": 0, "question": "When and where was %s born?"},
+            "Population": {"id": 1, "question":"What is the population of %s?"},
+            "Predecessor": {"id": 2, "question":"Who was %s's predecessor?"},
+            "Year founded": {"id": 3, "question": "When was %s founded?"},
+            "Founded": {"id": 4, "question": "When was %s founded?"},
+            "Molecular formula": {"id": 5, "question": "What is the chemical formula for %s?"},
+            "Density": {"id": 6, "question": "What is the density of %s?"}}
 
 
 def questions(text):
@@ -97,7 +101,13 @@ def get_vcard(wiki_title="Jabari_Parker"):
   ## Create soup
   from bs4 import BeautifulSoup
   soup = BeautifulSoup(html)
-  vcard = soup.findAll(attrs={'class': re.compile(r".*\bvcard\b.*")})[0]
+  try:
+    vcard = soup.findAll(attrs={'class': re.compile(r".*\bvcard\b.*")})[0]
+  except IndexError:
+    try:
+      vcard = soup.findAll(attrs={'class': re.compile(r".*\binfobox\b.*")})[0]
+    except IndexError:
+      return []
   ths = vcard.findAll("th")
 
   ## Look for vcard questions
