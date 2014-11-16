@@ -32,7 +32,7 @@
 }
 
 .button_wrapper {
-    width: 30%;
+    /*width: 0%;*/
     height: 100%;
     float: right !important;
 }
@@ -64,4 +64,28 @@
 }
 
 #home_link {
+}
+
+.question_list {
+    text-decoration: none;
+    padding: 0;
+}
+
+.question_item_wrapper {
+    list-style-type: none;
+    margin: 0 auto;
+}
+
+.question_item {
+    background: white;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.answer_blocks {
+    color: #00274A;
+    font-weight: bold;
+    font-size: 18pt;
+    margin: 10px 20px;
 }

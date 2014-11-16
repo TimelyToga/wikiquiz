@@ -23,11 +23,21 @@
                 <span class="section_title">Questions</span>
             </div>
             <div class="bubble_content">
-                <ol>
+                <ul class="question_list">
                     {% for q in questions %}
-                    <li>{{ q }}</li>
+                    <li class="question_item_wrapper">
+                        <div class="question_item" onclick="revealAnswer('{{ q.num }}')">
+                            <div class="question_text">
+                                {{ q.question }}
+                            </div>
+                            <div class="question_answer" id="{{ q.num }}" style="display: none">
+                                <br>
+                                <span class="answer_blocks">{{ q.answer }}</span>
+                            </div>
+                        </div>
+                    </li>
                     {% endfor %}
-                </ol>
+                </ul>
             </div>
         </div>
         <div class="bubble" id="wiki_content_wrapper">
@@ -46,6 +56,20 @@
 
         function safe(mystring){
             return mystring.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+        }
+
+        function revealAnswer(answer_id){
+            var id = "#" + answer_id;
+            $("#" + answer_id).toggle(250, function() {
+                // Animation complete.
+              });
+            console.log(answer_id);
+{#            var element = document.getElementById(answer_id)#}
+{#            if(element.style.visibility == 'visible'){#}
+{#                element.style.visibility = 'invisible'#}
+{#            } else {#}
+{#                element.style.visibility = 'visible'#}
+{#            }#}
         }
 
         var s = "{{ wiki_text }}";
