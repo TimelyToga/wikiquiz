@@ -40,13 +40,12 @@
 .return_button {
     display: table-cell;
     vertical-align: middle;
-    float: right;
     position: relative;
     text-align: center;
     height: 100%;
-    background-color: #ABBBD9;
     border-radius: 8px;
     padding: 4px;
+    transition: .15s;
 }
 
 .return_inner_wrapper {
@@ -56,11 +55,14 @@
 }
 
 #home_link_wrapper {
-    float: right;
-    color: #ffffff;
+    color: #000;
     text-decoration: none;
     font-weight: bold;
+}
 
+
+.return_button:hover {
+    font-size: 110%;
 }
 
 #home_link {

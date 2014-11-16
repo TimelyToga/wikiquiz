@@ -14,6 +14,12 @@
             <label id="nav-search-label" for="search_input">Search</label>
             <input type="text" id="search_input">
         </form>
+        <div id="about_wrapper" onclick="revealAbout()">
+            <span id="about_title">About</span>
+            <div class="about_content" style="display: none">
+                WikiQuiz attempts to turn any Wikipedia article into a quiz
+            </div>
+        </div>
     </div>
 
 {#    <div id="about_box">#}
@@ -34,5 +40,15 @@
             alert("Please use an actual Wikipedia article.")
         }
     });
+
+    function revealAbout(){
+        $(".about_content").toggle(250, function() {
+            // Animation complete.
+        });
+    }
+
+    window.onload = function() {
+      var input = document.getElementById("search_input").focus();
+    }
     </script>
 {% endblock scripts %}
