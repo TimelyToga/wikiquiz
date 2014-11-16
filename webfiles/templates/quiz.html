@@ -24,11 +24,9 @@
             </div>
             <div class="bubble_content">
                 <ol>
-                    <li>What is the {{ article_title }}?</li>
-                    <li>What is the {{ article_title }}?</li>
-                    <li>What is the {{ article_title }}?</li>
-                    <li>What is the {{ article_title }}?</li>
-                    <li>What is the {{ article_title }}?</li>
+                    {% for q in questions %}
+                    <li>{{ q }}</li>
+                    {% endfor %}
                 </ol>
             </div>
         </div>
