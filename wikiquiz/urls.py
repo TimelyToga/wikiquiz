@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     ## MAIN
     url(r'^$', 'webfiles.views.home'),
     url(r'^w/(.*)$', 'webfiles.views.quiz'),
+    url(r'^t/(.*)$', 'webfiles.views.test'),
 
     ## DIRECTORIES
     (r'^js/(?P<path>.*)$', 'django.views.static.serve', {'document_root': wikiquiz.settings.JS_DIR}),

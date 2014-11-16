@@ -22,7 +22,9 @@ vcard_qs = {"Born": {"id": 0, "question": "When and where was %s born?"},
             "Year founded": {"id": 3, "question": "When was %s founded?"},
             "Founded": {"id": 4, "question": "When was %s founded?"},
             "Molecular formula": {"id": 5, "question": "What is the chemical formula for %s?"},
-            "Density": {"id": 6, "question": "What is the density of %s?"}}
+            "Density": {"id": 6, "question": "What is the density of %s?"},
+            "Religion": {"id": 7, "question": "%s practices what religion?"},
+            "Political party": {"id": 8, "question": "%s belongs to what political party?"},}
 
 
 def questions(text):
@@ -81,6 +83,8 @@ def get_text(wiki_title="Jabari_Parker"):
   from readability import ParserClient
   parser_client = ParserClient(settings.PARSER_TOKEN)
   parser_response_text = parser_client.get_article_content(settings.WIKI_URL + wiki_title).content['content'].replace("\n", " ")
+
+  ## Filter out the end of Wikipedia articles
   text = parser_response_text.replace("/<img[^>]*>/g","")
   text = text.split('<span class="mw-headline" id="See_also"')[0]
   text = text.split('<span class="mw-headline" id="Notes"')[0]

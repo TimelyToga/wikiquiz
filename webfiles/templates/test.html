@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/css/test.css">
+    <link rel="stylesheet" href="/css/wiki.css">
+{% endblock header %}
+
+{% block content %}
+    <div class="wiki_wrapper">
+        <div class="wiki_title">
+            <span id="article_title">{{ article_title }}</span>
+            <div class="button_wrapper">
+                <div class="return_button">
+                    <div class="return_inner_wrapper">
+                            <a href="/" id="home_link_wrapper">
+                            <span id="home_link">Main Page</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sentence_group_wrapper">
+            <ol id="sentence_list">
+                {% for s in sentence_list %}
+                    <li class="sentence_wrapper">
+                        <span class="sentence_text">
+                            {{ s }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}
