@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <link rel="stylesheet" href="/css/wiki.css"/>
+{% endblock header %}
+
+{% block content %}
+    <div class="wiki_wrapper">
+        <div class="wiki_title">
+            <span id="article_title">{{ article_title }}</span>
+        </div>
+        <div class="bubble">
+            <div class="section_title_container">
+                <span class="section_title">Questions</span>
+            </div>
+            <div class="bubble_content">
+                <ol>
+                    <li>What is the {{ article_title }}?</li>
+                    <li>What is the {{ article_title }}?</li>
+                    <li>What is the {{ article_title }}?</li>
+                    <li>What is the {{ article_title }}?</li>
+                    <li>What is the {{ article_title }}?</li>
+                </ol>
+            </div>
+        </div>
+        <div class="bubble" id="wiki_content_wrapper">
+            <div class="section_title_container">
+                <span class="section_title">Article Content</span>
+            </div>
+            <div class="bubble_content" id="wiki_content1">
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script>
+
+        function safe(mystring){
+            return mystring.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+        }
+
+        var s = "{{ wiki_text }}";
+        var something = $('<div/>').html(s).text();
+        var div = document.createElement('div');
+        div.class = 'wiki_content';
+        div.innerHTML = something;
+        var elements = div.childNodes;
+
+        document.getElementById("wiki_content1").innerHTML = something;
+        //document.getElementById("wiki_content").innerHTML="";
+    </script>
+{% endblock scripts %}

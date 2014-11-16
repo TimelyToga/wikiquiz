@@ -23,4 +23,16 @@
 {% endblock content %}
 
 {% block scripts %}
+
+    <script>
+    document.querySelector('form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if(document.querySelector('input').value.indexOf("https://en.wikipedia.org/wiki/") === 0){
+            location.assign("/w/" + document.querySelector('input').value.split('/').pop());
+        } else {
+            // Not a wikipedia article
+            alert("Please use an actual Wikipedia article.")
+        }
+    });
+    </script>
 {% endblock scripts %}
