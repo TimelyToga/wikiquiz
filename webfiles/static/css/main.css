@@ -1,0 +1,49 @@
+.wrapper {
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 36pt;
+    margin: 0 auto;
+
+}
+
+.title_wrapper {
+    text-align: center;
+    overflow:hidden
+}
+
+.search_bar {
+    width: 75%;
+    margin: 100px auto;
+}
+
+#search_input {
+    width: 100%;
+    font-size: 24px;
+    padding: 10px;
+}
+
+#nav-search-label {
+    display: inline-block;
+    float: left;
+    line-height: 31px;
+    color: #bdbdbd;
+    padding: 0 8px 0 6px;
+    font-weight: normal;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+}
+
+#about_box {
+    margin: 0 100px;
+    background-color: #F5F5F5;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+html * {
+   font-family: Merriweather !important;
+}

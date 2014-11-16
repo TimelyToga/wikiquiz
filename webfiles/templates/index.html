@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block header %}
+{% endblock header %}
+
+{% block content %}
+    <div class="main">
+        <div class="title_wrapper">
+            <span class="title">
+                WikiQuiz
+            </span>
+        </div>
+        <form accept-charset="utf-8" class="search_bar" name="main_search_bar" role="search">
+            <label id="nav-search-label" for="search_input">Search</label>
+            <input type="text" id="search_input">
+        </form>
+    </div>
+
+{#    <div id="about_box">#}
+{#        <h1>About</h1>#}
+{#        <p>WikiQuiz generates 5 question quizzes from a wikipedia page.</p>#}
+{#    </div>#}
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

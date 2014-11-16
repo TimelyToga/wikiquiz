@@ -8,9 +8,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+## BIG DIRECTORIES
+WEB_DIR = os.path.abspath(os.path.join(BASE_DIR, 'webfiles'))
+TEMPLATE_DIRS = (os.path.abspath(os.path.join(WEB_DIR, 'templates')), )
+STATIC_DIR = os.path.abspath(os.path.join(WEB_DIR, 'static'))
+
+## LESSER DIRECTORIES
+FAVICON = os.path.abspath(os.path.join(STATIC_DIR, 'favicon.ico'))
+JS_DIR = os.path.abspath(os.path.join(STATIC_DIR, 'js'))
+CSS_DIR = os.path.abspath(os.path.join(STATIC_DIR, 'css'))
+IMG_DIR = os.path.abspath(os.path.join(STATIC_DIR, 'img'))
 
 
 # Quick-start development settings - unsuitable for production
