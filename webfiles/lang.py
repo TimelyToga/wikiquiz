@@ -9,7 +9,7 @@ from nltk.tokenize import sent_tokenize
 from wikiquiz import settings
 
 import random
-
+import re
 
 def get_tokens(text):
   text = BeautifulSoup(text).get_text()
@@ -44,5 +44,7 @@ def get_text(wiki_title="Jabari_Parker"):
   parser_response_text = parser_client.get_article_content(settings.WIKI_URL + wiki_title).content['content'].replace("\n", " ")
   text = BeautifulSoup(parser_response_text).get_text()
   text = text.replace("/<img[^>]*>/g","")
-  return text.split('<span class="mw-headline" id="References"')[0]
+  text = text.split('<span class="mw-headline" id="References"')[0]
+  text = re.sub("\[\d{0,3}\]", "", text).strip()
+  return text
 
