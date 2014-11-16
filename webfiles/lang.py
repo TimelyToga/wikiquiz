@@ -9,11 +9,17 @@ from nltk.tokenize import sent_tokenize
 from wikiquiz import settings
 
 import random
+import requests
 import re
 
 templates = {r"\S{0,20}ed in \d{4}": 0,  ## {past tense verb} in {year}
              r"(?:\s*\b([A-Z][A-Za-z]+)\b){1,2} was born on (\d{1,3}.{0,3} \S{3,10}|\S{3,10} \d{1,3}.{0,3}) \d{4}": 1, ## {Proper Noun} was born on {Month} {Day}, {Year}
             }
+
+vcard_qs = {"Born": {"id": 0, "question": "Where was %s born?"}, "Population": {"id": 1, "question":"What is the population of %s?"},
+            "Predecessor": {"id": 2, "question":"Who was %s's predecessor?"}, "Year founded": {"id": 3, "question": "When was %s founded?"},
+            "Founded": {"id": 4, "question": "When was %s founded?"}}
+
 
 def questions(text):
   ## Sentences
@@ -21,7 +27,7 @@ def questions(text):
 
   template_matches = {}
   final_question_list = []
-  curr_q = 0
+  cur_q = 0
 
   ## Find and record template matches
   for s in valid_sentences:
@@ -40,16 +46,16 @@ def questions(text):
       q_text = " " + split[0] + " in what year?"
       year = split[1]
       final_q_text = entry.split(chunk)[0] + q_text
-      final_question_list.append({"question":final_q_text, "answer": year, "num": curr_q})
-      curr_q += 1
+      final_question_list.append({"question":final_q_text, "answer": year, "num": cur_q})
+      cur_q += 1
     elif id == 1:
       ## Handle born in
       split = chunk.split(" was born on ")
       name = split[0].strip()
       q_text = "When was " + name + " born?"
       answer = split[1]
-      final_question_list.append({"question": q_text, "answer":answer, "num": curr_q})
-      curr_q += 1
+      final_question_list.append({"question": q_text, "answer":answer, "num": cur_q})
+      cur_q += 1
     else:
       ## Handle broken
       print "We fucked up, bitch"
@@ -75,4 +81,34 @@ def get_text(wiki_title="Jabari_Parker"):
   text = text.split('<span class="mw-headline" id="References"')[0]
   text = text.split('<span class="mw-headline" id="Notes_and_references"')[0]
   return text
+
+def get_vcard(wiki_title="Jabari_Parker"):
+  url = settings.WIKI_URL + wiki_title
+  html = requests.get(url).content
+
+  article_title = wiki_title.replace("_", " ")
+
+  vcard_results = {}
+  final_question_list = []
+  cur_q = 0
+
+  ## Create soup
+  from bs4 import BeautifulSoup
+  soup = BeautifulSoup(html)
+  vcard = soup.findAll(attrs={'class': re.compile(r".*\bvcard\b.*")})[0]
+  ths = vcard.findAll("th")
+
+  ## Look for vcard questions
+  for q in vcard_qs.keys():
+    id = vcard_qs[q]["id"]
+    question = vcard_qs[q]["question"] % article_title
+    for i in ths:
+      if i.string == q:
+        ## Extract information and render question
+        answer = i.parent.td.get_text()
+        final_question_list.append({"id": id, "question": question, "answer": answer, "num": cur_q })
+        cur_q += 1
+
+  return final_question_list
+
 
