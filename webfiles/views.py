@@ -7,7 +7,6 @@ from django.template import RequestContext, loader
 from webfiles import lang
 from bs4 import BeautifulSoup
 
-from wikiquiz import settings
 import re
 
 def home(request):
